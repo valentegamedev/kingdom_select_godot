@@ -1,0 +1,159 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/KingdomSelect.gd" type="Script" id=1]
+[ext_resource path="res://Images/Sky/space_spherical_map_by_cesium135-d5qay53.jpg" type="Texture" id=2]
+[ext_resource path="res://Models/mayaSpere.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/KingdomPoint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Kingdom.gd" type="Script" id=5]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 5 )
+name = "World 1"
+x = 18.0
+y = 24.4
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 5 )
+name = "World 2"
+x = 52.0
+y = -28.0
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 5 )
+name = "World 3"
+x = 115.0
+y = 2.1
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 5 )
+name = "World 4"
+x = 140.0
+y = -43.4
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 5 )
+name = "World 5"
+x = -133.0
+y = -6.1
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=6]
+uniform_name = "Transparency"
+
+[sub_resource type="VisualShaderNodeFresnel" id=7]
+default_input_values = [ 2, false, 3, 3.0 ]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=8]
+operator = 2
+
+[sub_resource type="VisualShaderNodeColorUniform" id=9]
+uniform_name = "FresnelColor"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=10]
+operator = 2
+
+[sub_resource type="VisualShader" id=11]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, unshaded;
+
+uniform vec4 FresnelColor : hint_color;
+uniform float Transparency;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ColorUniform:5
+	vec3 n_out5p0 = FresnelColor.rgb;
+	float n_out5p1 = FresnelColor.a;
+
+// Fresnel:3
+	bool n_in3p2 = false;
+	float n_in3p3 = 3.00000;
+	float n_out3p0 = n_in3p2 ? (pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in3p3)) : (pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in3p3));
+
+// VectorOp:7
+	vec3 n_out7p0 = n_out5p0 * vec3(n_out3p0);
+
+// ScalarUniform:2
+	float n_out2p0 = Transparency;
+
+// ScalarOp:4
+	float n_out4p0 = n_out2p0 * n_out3p0;
+
+// Output:0
+	ALBEDO = n_out7p0;
+	ALPHA = n_out4p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+flags/unshaded = true
+nodes/fragment/2/node = SubResource( 6 )
+nodes/fragment/2/position = Vector2( -260, 240 )
+nodes/fragment/3/node = SubResource( 7 )
+nodes/fragment/3/position = Vector2( -260, 340 )
+nodes/fragment/4/node = SubResource( 8 )
+nodes/fragment/4/position = Vector2( 164, 273.5 )
+nodes/fragment/5/node = SubResource( 9 )
+nodes/fragment/5/position = Vector2( -240, 100 )
+nodes/fragment/7/node = SubResource( 10 )
+nodes/fragment/7/position = Vector2( 60, 100 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 4, 0, 3, 0, 4, 1, 4, 0, 0, 1, 5, 0, 7, 0, 3, 0, 7, 1, 7, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
+shader_param/FresnelColor = Color( 0.8, 0.972549, 0.996078, 1 )
+shader_param/Transparency = 0.3
+
+[sub_resource type="PanoramaSky" id=13]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=14]
+background_mode = 2
+background_sky = SubResource( 13 )
+background_sky_orientation = Basis( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07 )
+glow_enabled = true
+
+[node name="SampleScene" type="Spatial"]
+
+[node name="KingdomSelect" type="Spatial" parent="."]
+script = ExtResource( 1 )
+kingdoms = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ]
+model = NodePath("Model")
+look_duration = 1.0
+visual_offset = Vector2( -16.4, 22.99 )
+
+[node name="Model" parent="KingdomSelect" instance=ExtResource( 3 )]
+
+[node name="KingdomPoint" parent="KingdomSelect/Model" instance=ExtResource( 4 )]
+
+[node name="Shell" parent="KingdomSelect" instance=ExtResource( 3 )]
+transform = Transform( 1.02, 0, 0, 0, 1.02, 0, 0, 0, 1.02, 0, 0, 0 )
+
+[node name="pSphere2" parent="KingdomSelect/Shell" index="0"]
+material/0 = SubResource( 12 )
+
+[node name="Tween" type="Tween" parent="KingdomSelect"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 14 )
+
+[node name="CameraPivot" type="Spatial" parent="."]
+
+[node name="CameraParent" type="Spatial" parent="CameraPivot"]
+
+[node name="Camera" type="Camera" parent="CameraPivot/CameraParent"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.374, 0.219, -1.011 )
+fov = 60.0
+
+[editable path="KingdomSelect/Model"]
+
+[editable path="KingdomSelect/Shell"]

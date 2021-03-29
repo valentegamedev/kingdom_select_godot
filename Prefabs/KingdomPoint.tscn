@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_color = Color( 0.968627, 0.054902, 0.054902, 1 )
+emission_enabled = true
+emission = Color( 1, 1, 0, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[node name="KingdomPoint" type="Spatial"]
+
+[node name="Point" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
+
+[node name="Halo" type="MeshInstance" parent="Point"]
+transform = Transform( 0.013, 0, 0, 0, 0.013, 0, 0, 0, 0.013, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
