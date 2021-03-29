@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/KingdomSelect.gd" type="Script" id=1]
 [ext_resource path="res://Images/Sky/space_spherical_map_by_cesium135-d5qay53.jpg" type="Texture" id=2]
 [ext_resource path="res://Models/mayaSpere.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/KingdomPoint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Kingdom.gd" type="Script" id=5]
 
 [sub_resource type="Resource" id=1]
@@ -132,8 +131,6 @@ look_duration = 1.0
 visual_offset = Vector2( -16.4, 22.99 )
 
 [node name="Model" parent="KingdomSelect" instance=ExtResource( 3 )]
-
-[node name="KingdomPoint" parent="KingdomSelect/Model" instance=ExtResource( 4 )]
 
 [node name="Shell" parent="KingdomSelect" instance=ExtResource( 3 )]
 transform = Transform( 1.02, 0, 0, 0, 1.02, 0, 0, 0, 1.02, 0, 0, 0 )

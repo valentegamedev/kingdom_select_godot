@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Bezier.gd" type="Script" id=1]
+[ext_resource path="res://LineRenderer/LineRenderer.tscn" type="PackedScene" id=2]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 0.5
@@ -13,7 +16,21 @@ emission_energy = 16.0
 emission_operator = 0
 emission_on_uv2 = false
 
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.340136, 0.489796, 0.62585, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 0, 0.705882, 1, 1, 0, 0.705882, 1, 1, 0, 0.705882, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = SubResource( 4 )
+
 [node name="KingdomPoint" type="Spatial"]
+script = ExtResource( 1 )
+distance_amount = 0.42
 
 [node name="Point" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
@@ -22,3 +39,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
 transform = Transform( 0.013, 0, 0, 0, 0.013, 0, 0, 0, 0.013, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
+
+[node name="LineRenderer" parent="." instance=ExtResource( 2 )]
+material_override = SubResource( 5 )
+points = [  ]
+startThickness = 0.002
+endThickness = 0.002
+drawCaps = false
