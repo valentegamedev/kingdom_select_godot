@@ -31,12 +31,26 @@ func spawn_kingdom_point(k:Kingdom):
 	kingdom.rotation_degrees = Vector3(k.y + visual_offset.y, k.x + visual_offset.x, 0)
 	k.visual_point = kingdom.get_child(0)
 
+func gimbal_lock_fix(quat):
+	var camera_pivot = get_tree().get_root().get_node("SampleScene/CameraPivot")
+	camera_pivot.global_transform = Transform(quat, camera_pivot.global_transform.origin)
+
 func look_at_kingdom(k:Kingdom):
-	var camera_parent = get_tree().get_root().get_node("SampleScene/CameraPivot/CameraParent")
+	#var camera_parent = get_tree().get_root().get_node("SampleScene/CameraPivot/CameraParent")
 	var camera_pivot = get_tree().get_root().get_node("SampleScene/CameraPivot")
 	
-	$Tween.interpolate_property(camera_parent, "rotation_degrees", camera_parent.rotation_degrees, Vector3(k.y, 0, 0), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
-	$Tween.interpolate_property(camera_pivot, "rotation_degrees", camera_pivot.rotation_degrees, Vector3(0, k.x, 0), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
-	$Tween.start()
+	var spatial = Spatial.new()
+	add_child(spatial)
+	spatial.rotation_degrees = Vector3(k.y, k.x, 0)
+	var kingdom_quat = Quat(spatial.global_transform.basis)
+	spatial.queue_free()
+	
+	var s = TweenSequence.new(get_tree())
+	s.append_method(self, "gimbal_lock_fix", Quat(camera_pivot.transform.basis), kingdom_quat, look_duration).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+	#$Tween.interpolate_property(camera_pivot, "global_transform", camera_pivot.global_transform, Transform(kingdom_basis, camera_pivot.global_transform.origin), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
+	
+	#$Tween.interpolate_property(camera_parent, "rotation_degrees", camera_parent.rotation_degrees, Vector3(k.y, 0, 0), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
+	#$Tween.interpolate_property(camera_pivot, "rotation_degrees", camera_pivot.rotation_degrees, Vector3(0, k.x, 0), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
+	#$Tween.start()
 	
 	get_tree().get_root().get_node("SampleScene/Canvas/Indicator").target = k.visual_point

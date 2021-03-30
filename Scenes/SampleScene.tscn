@@ -35,7 +35,7 @@ y = -43.4
 [sub_resource type="Resource" id=5]
 script = ExtResource( 5 )
 name = "World 5"
-x = 227.0
+x = -133.0
 y = 6.1
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=6]
@@ -140,8 +140,6 @@ transform = Transform( 1.02, 0, 0, 0, 1.02, 0, 0, 0, 1.02, 0, 0, 0 )
 
 [node name="pSphere2" parent="KingdomSelect/Shell" index="0"]
 material/0 = SubResource( 12 )
-
-[node name="Tween" type="Tween" parent="KingdomSelect"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 14 )
