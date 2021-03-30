@@ -38,5 +38,5 @@ func look_at_kingdom(k:Kingdom):
 	$Tween.interpolate_property(camera_parent, "rotation_degrees", camera_parent.rotation_degrees, Vector3(k.y, 0, 0), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 	$Tween.interpolate_property(camera_pivot, "rotation_degrees", camera_pivot.rotation_degrees, Vector3(0, k.x, 0), look_duration, Tween.TRANS_QUART, Tween.EASE_OUT)
 	$Tween.start()
-
+	
 	get_tree().get_root().get_node("SampleScene/Canvas/Indicator").target = k.visual_point
