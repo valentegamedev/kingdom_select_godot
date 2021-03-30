@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/KingdomSelect.gd" type="Script" id=1]
 [ext_resource path="res://Images/Sky/space_spherical_map_by_cesium135-d5qay53.jpg" type="Texture" id=2]
 [ext_resource path="res://Models/mayaSpere.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Images/UI/donut.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Kingdom.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/FollowTarget.gd" type="Script" id=6]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 5 )
@@ -32,8 +34,8 @@ y = -43.4
 [sub_resource type="Resource" id=5]
 script = ExtResource( 5 )
 name = "World 5"
-x = -133.0
-y = -6.1
+x = 227.0
+y = 6.1
 
 [sub_resource type="VisualShaderNodeScalarUniform" id=6]
 uniform_name = "Transparency"
@@ -121,6 +123,62 @@ background_sky = SubResource( 13 )
 background_sky_orientation = Basis( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07 )
 glow_enabled = true
 
+[sub_resource type="Animation" id=15]
+resource_name = "IndicatorAnimation"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CircleOne:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CircleOne:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "IndicatorAnimation"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CircleTwo:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CircleTwo:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="SampleScene" type="Spatial"]
 
 [node name="KingdomSelect" type="Spatial" parent="."]
@@ -150,6 +208,58 @@ environment = SubResource( 14 )
 [node name="Camera" type="Camera" parent="CameraPivot/CameraParent"]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.374, 0.219, -1.011 )
 fov = 60.0
+
+[node name="Canvas" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Indicator" type="Control" parent="Canvas"]
+margin_left = 491.369
+margin_top = 272.143
+margin_right = 491.369
+margin_bottom = 272.143
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="CircleOne" type="TextureRect" parent="Canvas/Indicator"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -55.0
+margin_top = -55.0
+margin_right = 55.0
+margin_bottom = 55.0
+rect_scale = Vector2( 0.25, 0.25 )
+rect_pivot_offset = Vector2( 55, 55 )
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CircleTwo" type="TextureRect" parent="Canvas/Indicator"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -55.0
+margin_top = -55.0
+margin_right = 55.0
+margin_bottom = 55.0
+rect_scale = Vector2( 0.25, 0.25 )
+rect_pivot_offset = Vector2( 55, 55 )
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayerCircleOne" type="AnimationPlayer" parent="Canvas/Indicator"]
+anims/IndicatorAnimation = SubResource( 15 )
+
+[node name="AnimationPlayerCircleTwo" type="AnimationPlayer" parent="Canvas/Indicator"]
+anims/IndicatorAnimation = SubResource( 16 )
 
 [editable path="KingdomSelect/Model"]
 

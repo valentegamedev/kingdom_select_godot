@@ -125,7 +125,7 @@ func cap(center, pivot, thickness, smoothing):
 	array[smoothing] = center - orthogonal;
 	
 	for i in range(1, smoothing):
-		array[i] = center + (orthogonal.rotated(axis, lerp(0, PI, float(i) / smoothing)));
+		array[i] = center + (orthogonal.rotated(axis.normalized(), lerp(0, PI, float(i) / smoothing)));
 	
 	for i in range(1, smoothing + 1):
 		set_uv(Vector2(0, (i - 1) / smoothing))

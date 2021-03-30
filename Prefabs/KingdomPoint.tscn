@@ -46,3 +46,4 @@ points = [  ]
 startThickness = 0.002
 endThickness = 0.002
 drawCaps = false
+drawCorners = false
