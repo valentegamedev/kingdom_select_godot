@@ -4,6 +4,3 @@ Godot version of Mix and Jam's Kingdom Select from https://www.youtube.com/watch
 ## Unity Version
 
 https://github.com/mixandjam/Kingdom-Select
-
-## License
-MIT License (credit to @mixandjam for Unity's version)
