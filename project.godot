@@ -36,6 +36,13 @@ config/name="KingdomSelect"
 run/main_scene="res://Scenes/SampleScene.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1080
+window/size/height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

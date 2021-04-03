@@ -22,6 +22,6 @@ func animate():
 	s.append(self, "rect_scale", origSize, duration).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	s.join().append(self, "modulate", Color(1, 1, 1, 1), duration / 3.0)
 	s.join().append(self, "modulate", Color(1, 1, 1, 0), duration / 4.0).set_delay(duration / 1.5).from(Color(1, 1, 1, 1))
-	s.append(self, "rect_scale", origSize / 4, 0)
+	s.append(self, "rect_scale", origSize / 4, 0) #reset for the loop
 	s.set_loops(-1)
 	

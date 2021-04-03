@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/KingdomSelect.gd" type="Script" id=1]
 [ext_resource path="res://Images/Sky/space_spherical_map_by_cesium135-d5qay53.jpg" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Scripts/Kingdom.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/FollowTarget.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/IndicatorAnimator.gd" type="Script" id=7]
+[ext_resource path="res://Images/UI/fade.png" type="Texture" id=8]
+[ext_resource path="res://Images/UI/panel.png" type="Texture" id=9]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 5 )
@@ -124,6 +126,21 @@ background_sky = SubResource( 13 )
 background_sky_orientation = Basis( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07 )
 glow_enabled = true
 
+[sub_resource type="Shader" id=15]
+code = "shader_type canvas_item;
+uniform vec4 color: hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+    vec4 texColor = texture(TEXTURE, UV);
+    vec4 finalColor = vec4(texColor.r); 
+    COLOR = finalColor * color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = SubResource( 15 )
+shader_param/color = Color( 0.772549, 0.560784, 0, 1 )
+
 [node name="SampleScene" type="Spatial"]
 
 [node name="KingdomSelect" type="Spatial" parent="."]
@@ -153,17 +170,35 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.374, 
 fov = 60.0
 
 [node name="Canvas" type="Control" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+anchor_top = 0.000694444
+anchor_bottom = 0.000694444
+margin_left = -1.53848
+margin_top = 0.707909
+margin_right = 1078.47
+margin_bottom = 720.708
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fade" type="TextureRect" parent="Canvas"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -221.25
+margin_bottom = 102.75
+rect_pivot_offset = Vector2( 540, 162.25 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Indicator" type="Control" parent="Canvas"]
-margin_left = 479.099
-margin_top = 265.536
-margin_right = 479.099
-margin_bottom = 265.536
+margin_left = 540.0
+margin_top = 360.0
+margin_right = 540.0
+margin_bottom = 360.0
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -197,6 +232,127 @@ __meta__ = {
 }
 duration = 1.0
 delay = 0.7
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -136.0
+margin_top = -54.0001
+margin_right = 136.0
+margin_bottom = -38.0001
+grow_horizontal = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Canvas/MarginContainer"]
+material = SubResource( 16 )
+margin_right = 272.0
+margin_bottom = 16.0
+size_flags_horizontal = 9
+size_flags_vertical = 9
+texture = ExtResource( 9 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/MarginContainer"]
+margin_right = 272.0
+margin_bottom = 16.0
+custom_constants/margin_right = 40
+custom_constants/margin_left = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/MarginContainer/MarginContainer"]
+margin_left = 40.0
+margin_right = 232.0
+margin_bottom = 16.0
+custom_constants/separation = 48
+alignment = 1
+
+[node name="Control" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
+margin_bottom = 16.0
+
+[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 152.0
+margin_bottom = 24.0
+rect_rotation = -60.0
+rect_pivot_offset = Vector2( 16, 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
+margin_left = 48.0
+margin_right = 48.0
+margin_bottom = 16.0
+
+[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control2"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 152.0
+margin_bottom = 24.0
+rect_rotation = -60.0
+rect_pivot_offset = Vector2( 16, 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
+margin_left = 96.0
+margin_right = 96.0
+margin_bottom = 16.0
+
+[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control3"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 152.0
+margin_bottom = 24.0
+rect_rotation = -60.0
+rect_pivot_offset = Vector2( 16, 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control4" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
+margin_left = 144.0
+margin_right = 144.0
+margin_bottom = 16.0
+
+[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control4"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 152.0
+margin_bottom = 24.0
+rect_rotation = -60.0
+rect_pivot_offset = Vector2( 16, 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control5" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
+margin_left = 192.0
+margin_right = 192.0
+margin_bottom = 16.0
+
+[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control5"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 152.0
+margin_bottom = 24.0
+rect_rotation = -60.0
+rect_pivot_offset = Vector2( 16, 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Canvas"]
+margin_right = 12.0
+margin_bottom = 20.0
 
 [editable path="KingdomSelect/Model"]
 
