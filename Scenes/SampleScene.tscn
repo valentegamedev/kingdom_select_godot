@@ -128,6 +128,7 @@ glow_enabled = true
 
 [sub_resource type="Shader" id=15]
 code = "shader_type canvas_item;
+
 uniform vec4 color: hint_color = vec4(1.0, 1.0, 1.0, 1.0);
 
 void fragment() {
@@ -147,6 +148,7 @@ shader_param/color = Color( 0.772549, 0.560784, 0, 1 )
 script = ExtResource( 1 )
 kingdoms = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ]
 model = NodePath("Model")
+kingdom_buttons_container = NodePath("../Canvas/KingdomButtonsContainer/MarginContainer/HBoxContainer")
 look_duration = 1.0
 visual_offset = Vector2( -16.4, 22.99 )
 
@@ -181,6 +183,20 @@ __meta__ = {
 }
 
 [node name="Fade" type="TextureRect" parent="Canvas"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -221.25
+margin_bottom = 102.75
+rect_pivot_offset = Vector2( 540, 162.25 )
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fade2" type="TextureRect" parent="Canvas"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -233,23 +249,23 @@ __meta__ = {
 duration = 1.0
 delay = 0.7
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas"]
+[node name="KingdomButtonsContainer" type="MarginContainer" parent="Canvas"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -136.0
+margin_left = -40.0002
 margin_top = -54.0001
-margin_right = 136.0
+margin_right = 39.9998
 margin_bottom = -38.0001
 grow_horizontal = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Canvas/MarginContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="Canvas/KingdomButtonsContainer"]
 material = SubResource( 16 )
-margin_right = 272.0
+margin_right = 80.0
 margin_bottom = 16.0
 size_flags_horizontal = 9
 size_flags_vertical = 9
@@ -259,100 +275,18 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="Canvas/MarginContainer"]
-margin_right = 272.0
+[node name="MarginContainer" type="MarginContainer" parent="Canvas/KingdomButtonsContainer"]
+margin_right = 80.0
 margin_bottom = 16.0
 custom_constants/margin_right = 40
 custom_constants/margin_left = 40
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/MarginContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/KingdomButtonsContainer/MarginContainer"]
 margin_left = 40.0
-margin_right = 232.0
+margin_right = 40.0
 margin_bottom = 16.0
 custom_constants/separation = 48
 alignment = 1
-
-[node name="Control" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
-margin_bottom = 16.0
-
-[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control"]
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 152.0
-margin_bottom = 24.0
-rect_rotation = -60.0
-rect_pivot_offset = Vector2( 16, 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control2" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
-margin_left = 48.0
-margin_right = 48.0
-margin_bottom = 16.0
-
-[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control2"]
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 152.0
-margin_bottom = 24.0
-rect_rotation = -60.0
-rect_pivot_offset = Vector2( 16, 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control3" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
-margin_left = 96.0
-margin_right = 96.0
-margin_bottom = 16.0
-
-[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control3"]
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 152.0
-margin_bottom = 24.0
-rect_rotation = -60.0
-rect_pivot_offset = Vector2( 16, 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control4" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
-margin_left = 144.0
-margin_right = 144.0
-margin_bottom = 16.0
-
-[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control4"]
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 152.0
-margin_bottom = 24.0
-rect_rotation = -60.0
-rect_pivot_offset = Vector2( 16, 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control5" type="Control" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer"]
-margin_left = 192.0
-margin_right = 192.0
-margin_bottom = 16.0
-
-[node name="Button" type="Button" parent="Canvas/MarginContainer/MarginContainer/HBoxContainer/Control5"]
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 152.0
-margin_bottom = 24.0
-rect_rotation = -60.0
-rect_pivot_offset = Vector2( 16, 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="Canvas"]
-margin_right = 12.0
-margin_bottom = 20.0
 
 [editable path="KingdomSelect/Model"]
 
