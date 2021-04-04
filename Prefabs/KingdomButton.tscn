@@ -22,7 +22,7 @@ resource_local_to_scene = true
 shader = SubResource( 1 )
 shader_param/color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=3]
 use_filter = true
 font_data = ExtResource( 3 )
 
@@ -90,7 +90,7 @@ margin_left = -45.0
 margin_top = -9.0
 margin_right = 60.0
 margin_bottom = 10.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "World 1"
 __meta__ = {

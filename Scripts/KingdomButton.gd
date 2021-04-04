@@ -21,8 +21,12 @@ func _on_Rect_button_down():
 	emit_signal("world_selected", self)
 	$Rect/NinePatchRect/Label.set("custom_colors/font_color", text_color_when_selected)
 	$Rect/NinePatchRect.self_modulate = Color.white
-	$Rect/Circle.material.set_shader_param("color", Color.red)	
-	print("_on_Rect_button_down")
+	$Rect/Circle.material.set_shader_param("color", Color.red)
+	
+	var s = TweenSequence.new(get_tree())
+	s.append($Rect, "rect_scale", Vector2(1.2, 1.2), .03)
+	s.append($Rect, "rect_scale", Vector2(0.9, 0.9), .05)
+	s.append($Rect, "rect_scale", Vector2(1.0, 1.0), .03)
 
 func _on_Rect_mouse_entered():
 	if  get_tree().get_root().get_node("SampleScene/KingdomSelect").currentSelectedButton != self:
