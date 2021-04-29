@@ -76,9 +76,8 @@ void fragment() {
 	float n_out5p1 = FresnelColor.a;
 
 // Fresnel:3
-	bool n_in3p2 = false;
 	float n_in3p3 = 3.00000;
-	float n_out3p0 = n_in3p2 ? (pow(clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in3p3)) : (pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in3p3));
+	float n_out3p0 = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in3p3);
 
 // VectorOp:7
 	vec3 n_out7p0 = n_out5p0 * vec3(n_out3p0);
@@ -331,5 +330,4 @@ process_material = SubResource( 21 )
 draw_pass_1 = SubResource( 23 )
 
 [editable path="KingdomSelect/Model"]
-
 [editable path="KingdomSelect/Shell"]
